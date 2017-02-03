@@ -241,7 +241,7 @@ var Intercooler = Intercooler || (function() {
 
     if (xhr.getResponseHeader("X-IC-Script")) {
       log(elt, "X-IC-Script: evaling " + xhr.getResponseHeader("X-IC-Script"), "DEBUG");
-      eval(xhr.getResponseHeader("X-IC-Script"));
+      globalEval(xhr.getResponseHeader("X-IC-Script"));
     }
 
     if (xhr.getResponseHeader("X-IC-Redirect")) {
@@ -954,7 +954,7 @@ var Intercooler = Intercooler || (function() {
     var triggerFrom = getICAttribute(elt, 'ic-trigger-from');
     if(triggerFrom) {
       if($.inArray(triggerFrom, ['document', 'window']) >= 0){
-        return $(eval(triggerFrom));
+        return $(globalEval(triggerFrom));
       } else {
         return $(triggerFrom);
       }
@@ -1385,7 +1385,7 @@ var Intercooler = Intercooler || (function() {
 
   function computeArgs(args) {
     try {
-      return eval("[" + args + "]")
+      return globalEval("[" + args + "]")
     } catch (e) {
       return [$.trim(args)];
     }
